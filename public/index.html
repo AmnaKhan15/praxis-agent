@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Praxis: watch an AI agent do the work</title>
+  <meta name="description" content="Hand an AI a messy job, watch it work, and see a checker prove whether it got it right.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FF6A1F'/%3E%3Cpath d='M10 24V8h7a5 5 0 010 10h-7' fill='none' stroke='%2316120F' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/" aria-label="Praxis home"><span class="logo" aria-hidden="true">P</span>Praxis</a>
+    <nav class="nav" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="t-run" aria-controls="p-run" aria-selected="true">Try it</button>
+      <button class="tab" role="tab" id="t-compare" aria-controls="p-compare" aria-selected="false">Compare</button>
+      <button class="tab" role="tab" id="t-how" aria-controls="p-how" aria-selected="false">How it works</button>
+      <button class="tab" role="tab" id="t-receipts" aria-controls="p-receipts" aria-selected="false">Receipts</button>
+    </nav>
+    <div class="ai-pick">
+      <label for="provider">AI</label>
+      <select id="provider"></select>
+      <span class="tip-wrap"><button type="button" class="info" aria-label="What does this choose?" aria-expanded="false">?</button>
+        <span class="tip-pop" role="tooltip"><b>Who plays the AI?</b><br>Practice mode is a pre-written script, so it runs instantly with no key. It is not a real AI.<br><br>Pick Gemini, Claude or another to run a real one. You will be asked for an API key. Gemini has a free key.</span></span>
+    </div>
+  </div>
+  <div id="live-fields" class="live-fields livebar" hidden>
+    <div class="livebar-inner">
+      <label class="field"><span>API key <small>(used for this run only, never stored)</small></span>
+        <input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste a key"></label>
+      <label class="field"><span>Model name</span>
+        <input id="model" type="text" autocomplete="off" spellcheck="false"></label>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- TRY IT -->
+  <section id="p-run" role="tabpanel" aria-labelledby="t-run">
+
+    <div class="hero">
+      <div class="hero-copy">
+        <h1>Give an AI agent a messy job. See if it gets it right.</h1>
+        <p class="lede">Give an AI agent 24 messy receipts and one goal: <strong>"prepare the March expense report."</strong> It opens the files and builds the spreadsheet itself, and a checker grades the result.</p>
+        <div class="cta-row">
+          <button type="button" class="btn big" id="cta-run">Watch it happen</button>
+          <button type="button" class="btn ghost" id="cta-video">Watch the 2-minute video</button>
+          <a class="btn-link subtle" href="#" id="roadmap-link">New to accounting? Read the plain-English roadmap</a>
+        </div>
+        <p class="fine">Free, no sign-up. Starts in practice mode, where a pre-written script plays the AI.</p>
+      </div>
+
+      <div class="stage" aria-hidden="true">
+        <div class="slips">
+          <div class="slip s1"><b>Blue Door Cafe</b><span>Meals</span><i>18.40 USD</i></div>
+          <div class="slip s2"><b>Harbor Grill</b><span>Meals</span><i>$82.50</i></div>
+          <div class="slip s3"><b>22 more receipts</b><span>4 different layouts</span><i>1 in euros</i></div>
+        </div>
+        <div class="stage-arrow"><svg viewBox="0 0 48 24" width="56" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h42M34 3l10 9-10 9"/></svg><span>AI</span></div>
+        <div class="sheet">
+          <div class="sheet-head"><i></i><i></i><i></i></div>
+          <div class="sheet-title">expense_report.xlsx</div>
+          <div class="sheet-row"><span>Meals</span><em></em></div>
+          <div class="sheet-row"><span>Software</span><em></em></div>
+          <div class="sheet-row"><span>Travel</span><em></em></div>
+          <div class="sheet-row"><span>Flags</span><em class="warn"></em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card setup" id="setup">
+      <div class="setup-head">
+        <h2 class="section-h">Try it: 4 rounds</h2>
+        <p class="setup-sub">Same job, same AI. Each round adds one kind of help.</p>
+      </div>
+
+      <ol class="ladder" id="ladder" aria-label="The four rounds"></ol>
+
+      <div class="round" id="round">
+        <div class="round-head"><span class="round-no" id="round-no"></span><h3 id="round-title"></h3></div>
+        <p class="round-what" id="round-what"></p>
+        <div class="helpbar" id="helpbar" aria-label="Help the AI has this round"></div>
+        <div class="adds" id="round-adds"></div>
+        <div class="actions">
+          <button class="btn big" id="run">Start round 1</button>
+          <span class="status" id="status" role="status" aria-live="polite"></span>
+        </div>
+        <p class="hint" id="key-note"></p>
+      </div>
+
+      <section class="more" id="more" aria-labelledby="more-h">
+        <h3 class="more-h" id="more-h">Two more ways to explore</h3>
+        <p class="setup-sub">Not sure what to try next? Pick one of these.</p>
+        <div class="note-box" role="note">
+          <p><b>Two separate choices. They do not depend on each other.</b></p>
+          <p><b>1. Who answers:</b> the menu at the top of the page. <b>Practice mode</b> is a pre-written script with no key. A <b>real AI</b> uses your key.</p>
+          <p><b>2. What help it gets:</b> the four rounds above, or your own mix below. Any help setup can run on either one.</p>
+          <p><b>Watch a saved run</b> is neither: it just replays a recording, so it uses no AI and no key.</p>
+        </div>
+        <div class="more-grid">
+          <div id="replay-row">
+            <div class="block-title">Watch a saved run <span class="step-tag">A recording</span>
+              <span class="tip-wrap"><button type="button" class="info" aria-label="What is a saved run?" aria-expanded="false">?</button>
+                <span class="tip-pop" role="tooltip">A recording is a saved run of one of the four rounds. It plays back every step and the final score instantly. Nothing new is run, so no key and no waiting.</span></span>
+            </div>
+            <p class="hint rec-hint">See a finished run step by step with its score. It plays instantly, with no key and no waiting.</p>
+            <label class="sr-only" for="replay-pick">Which recording</label>
+            <select id="replay-pick"></select>
+            <button class="btn ghost" id="replay">Play the saved run</button>
+          </div>
+          <div class="mix-col">
+            <div class="block-title">Build your own mix <span class="step-tag">Choice 2: the help</span></div>
+            <p class="hint rec-hint">The four rounds above are just presets. Here you flip the three kinds of help yourself, then run it, to see which one matters most. A switch changes what the agent is told or can do, both in practice mode and with a real AI.</p>
+            <ul class="levers">
+              <li class="lever" data-targets="euro,policy">
+                <label for="lv-context"><span class="lv-kind">What it knows</span><span class="lv-name">Company facts</span><span class="lv-desc">The euro rate and the meal limit.</span><span class="lv-helps">Helps with: the euro receipt, meals over the limit</span></label>
+                <input class="switch" type="checkbox" role="switch" id="lv-context">
+                <details class="lv-edit"><summary>See or edit the text</summary><textarea id="tx-context" aria-label="Company facts text" rows="4"></textarea></details>
+              </li>
+              <li class="lever" data-targets="policy,dup_flag">
+                <label for="lv-tool"><span class="lv-kind">What it can do</span><span class="lv-name">A new ability</span><span class="lv-desc">Add a new sheet, so it can make a Flags sheet.</span><span class="lv-helps">Helps with: the Flags sheet</span></label>
+                <input class="switch" type="checkbox" role="switch" id="lv-tool">
+              </li>
+              <li class="lever" data-targets="dup_total,dup_flag">
+                <label for="lv-instr"><span class="lv-kind">How to do it</span><span class="lv-name">Clear instructions</span><span class="lv-desc">The sheet layout and what to do with a duplicate.</span><span class="lv-helps">Helps with: the duplicate receipt, the report layout</span></label>
+                <input class="switch" type="checkbox" role="switch" id="lv-instr">
+                <details class="lv-edit"><summary>See or edit the text</summary><textarea id="tx-instr" aria-label="Clear instructions text" rows="5"></textarea></details>
+              </li>
+            </ul>
+            <div class="mix-summary">
+              <p class="setup-label" id="setup-label"></p>
+              <p class="mix-ai" id="mix-ai"></p>
+            </div>
+            <button class="btn" id="run-mix" type="button">Run this mix</button>
+          </div>
+        </div>
+        <span class="badge" id="brain-badge" hidden>Practice mode</span>
+      </section>
+    </div>
+
+    <div id="watch" hidden>
+      <div class="card">
+        <h2 class="section-h" id="watch-title">Watch it work</h2>
+        <div id="notice" aria-live="polite"></div>
+        <p class="live-status" id="live-status" role="status"></p>
+        <div class="watch-grid">
+          <div class="plan-col">
+            <div class="col-title">Its plan</div>
+            <div class="progress" aria-hidden="true"><span id="plan-bar"></span></div>
+            <div id="plan"></div>
+          </div>
+          <div class="feed-col">
+            <div class="col-title">Every move it makes <small>(click one to see what it read or wrote)</small></div>
+            <div class="feed" id="feed" tabindex="0" aria-label="Step by step record of what the AI did"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" hidden>
+      <div class="card">
+        <h2 class="section-h" id="result-title">The result</h2>
+        <ol class="ladder ladder-mini" id="ladder2" aria-label="Your progress"></ol>
+        <div class="result-top">
+          <div class="big-score" id="big-score" aria-live="polite"></div>
+          <div>
+            <div class="result-line" id="score-heading"></div>
+            <p class="delta" id="delta"></p>
+            <p class="hint" id="score-sub"></p>
+            <a class="btn small" id="download" hidden>Download the spreadsheet</a>
+          </div>
+        </div>
+        <div id="coach"></div>
+        <div class="col-title checks-title">The 7 checks, one by one</div>
+        <ul class="checks" id="checks"></ul>
+        <div id="hints" hidden></div>
+        <p class="hint" id="meta"></p>
+      </div>
+    </div>
+    <div class="job">
+      <div class="job-card">
+        <h2>The job</h2>
+        <p><strong id="goal">Prepare the March expense report</strong></p>
+        <ul class="plain-list">
+          <li>The AI reads 24 receipt files. They look different on purpose.</li>
+          <li>It adds up what was spent in each category.</li>
+          <li>It builds a real spreadsheet you can download.</li>
+        </ul>
+      </div>
+      <div class="job-card grading">
+        <div class="sb-head">
+          <h2>How it is graded
+            <span class="tip-wrap"><button type="button" class="info" aria-label="Who does the grading?" aria-expanded="false">?</button>
+              <span class="tip-pop" role="tooltip">A script, not the AI, opens the spreadsheet and tests these 7 things against an answer key the AI never sees. The AI saying "done" counts for nothing.</span></span>
+          </h2>
+          <span class="sb-score" id="sb-score">Not run yet</span>
+        </div>
+        <ul class="sb-grid" id="sb-grid" aria-live="polite"></ul>
+        <details class="check-help">
+          <summary>What does each check mean?</summary>
+          <dl>
+            <dt>Report opens</dt><dd>The spreadsheet exists, opens, and has a sheet called Summary.</dd>
+            <dt>Plain totals right</dt><dd>Meals, Software and Other add up to the correct amounts.</dd>
+            <dt>Euro converted</dt><dd>The Berlin hotel (120 EUR) was turned into dollars (132 USD) before it was added to Travel.</dd>
+            <dt>Duplicate counted once</dt><dd>The PaperWorks receipt appears twice in the folder. The Office total counts it only once.</dd>
+            <dt>Big meals flagged</dt><dd>Every meal over 75 USD is listed on the Flags sheet. There are two. A meal of exactly 75 is not over the limit.</dd>
+            <dt>Duplicate flagged</dt><dd>The extra copy of that PaperWorks receipt is listed on the Flags sheet as a duplicate.</dd>
+            <dt>Originals untouched</dt><dd>The AI did not change any of the original receipt files.</dd>
+          </dl>
+        </details>
+      </div>
+    </div>
+
+
+    <div class="card agent-card" id="agent">
+      <h2 class="section-h">Is this just ChatGPT with files?</h2>
+      <p class="setup-sub">Not quite. The difference is not the files. It is who drives: in a chat, you do. In an agent, the model does.</p>
+      <div class="vs">
+        <div class="vs-col">
+          <h3>A chatbot</h3>
+          <ol>
+            <li>You paste in or upload the documents.</li>
+            <li>It writes back an answer.</li>
+            <li>You check it, then ask for the next thing.</li>
+          </ol>
+          <p class="vs-foot">You drive every step. One question, one answer, then it waits for you.</p>
+        </div>
+        <div class="vs-col agent">
+          <h3>Praxis, an agent</h3>
+          <ol>
+            <li>You give it a goal. The files stay in a workspace it has to explore.</li>
+            <li>It lists and opens the receipt files with tools.</li>
+            <li>It writes a real spreadsheet, cell by cell.</li>
+            <li>It can read its own work back and keep going.</li>
+            <li>A separate script grades the actual file.</li>
+          </ol>
+          <p class="vs-foot">Many steps, real tools, a checked result. Open the <em>Every move it makes</em> list after a run to see each step.</p>
+        </div>
+      </div>
+      <p class="vs-loop"><b>The loop:</b> decide the next step, use a tool, see what happened, repeat until the job is done or it runs out of steps (30 here).</p>
+    </div>
+
+  </section>
+
+  <!-- COMPARE -->
+  <section id="p-compare" role="tabpanel" aria-labelledby="t-compare" hidden>
+    <div class="page-head">
+      <h1>Same job, four setups</h1>
+      <p class="lede">Each setup adds one thing. A longer bar is a higher average score out of 7.</p>
+    </div>
+    <div class="cmp-pick" id="cmp-pick" hidden>
+      <label for="cmp-select"><b>Show results for</b></label>
+      <select id="cmp-select"></select>
+      <p class="hint" id="cmp-note"></p>
+    </div>
+    <div id="compare-body"></div>
+  </section>
+
+  <!-- HOW -->
+  <section id="p-how" role="tabpanel" aria-labelledby="t-how" hidden>
+    <div class="page-head">
+      <h1>How it works</h1>
+      <p class="lede">A chat answers once and you do the work. Here the agent reads files, writes a real spreadsheet, and a script (not the agent) says whether it worked.</p>
+    </div>
+    <div class="card">
+      <h2>The plain-English roadmap</h2>
+      <p class="card-intro">No accounting knowledge needed. What an expense report is, what a company rule is, and why a duplicate receipt is a problem.</p>
+      <a href="/roadmap.png" target="_blank" rel="noopener"><img class="diagram" src="/roadmap.png" alt="Plain-English roadmap: a shoebox of 24 receipts becomes an expense report. It explains receipts, categories, currency conversion, the 75 dollar meal rule, and duplicate receipts, then the five steps from job to grade."></a>
+    </div>
+    <div class="card">
+      <h2>One run, step by step</h2>
+      <p class="card-intro">Follow the 24 receipts all the way to the final grade, with the real traps the AI has to get right.</p>
+      <a href="/walkthrough.png" target="_blank" rel="noopener"><img class="diagram" src="/walkthrough.png" alt="Diagram: 24 receipts are read, totalled per category with the euro receipt converted and the duplicate counted once, written to a Summary sheet, problem receipts listed on a Flags sheet, then graded by a script on 7 checks."></a>
+    </div>
+    <div class="card">
+      <h2>What happens when you press Run</h2>
+      <ol class="steps-list">
+        <li>The agent gets one goal and a private copy of 24 receipts. It cannot leave that folder.</li>
+        <li>The model decides what to do next and asks for a tool: list files, read a file, write cells.</li>
+        <li>Praxis runs the tool and sends the result back. The model remembers nothing between turns, so everything it needs is sent again each time.</li>
+        <li>This repeats until the agent says it is finished.</li>
+        <li>A checker opens the real spreadsheet and tests 7 things against an answer key the agent never sees.</li>
+        <li>If a check fails, Praxis points to what to change: context, tools or instructions.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2>Plain-English glossary</h2>
+      <dl class="terms">
+        <dt>AI agent</dt><dd>An AI that works toward a goal over many steps, using tools, instead of answering once like a chatbot.</dd>
+        <dt>Company facts (context)</dt><dd>Things the AI cannot guess, such as the euro rate.</dd>
+        <dt>New ability (tool)</dt><dd>Something it is allowed to do, such as adding a sheet.</dd>
+        <dt>Instructions</dt><dd>How you want the work done.</dd>
+        <dt>Trajectory</dt><dd>The step-by-step record of what it did. Read it to see where it went wrong.</dd>
+        <dt>Feedback loop</dt><dd>Run it, read the checks, change one thing, run again.</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h2>Safety on this demo</h2>
+      <p>Only the built-in receipts are used. A key you paste is used for that one run and never stored. Runs on the host's key are capped per day.</p>
+    </div>
+    <p class="footnote">Built as a capstone applying the framework from Mercor's Introduction to Agents course.
+      <a href="https://work.mercor.com/learn/verify/MRC-2026-BJDT6G82" target="_blank" rel="noopener noreferrer">Verify the certificate</a>.</p>
+  </section>
+
+  <!-- RECEIPTS -->
+  <section id="p-receipts" role="tabpanel" aria-labelledby="t-receipts" hidden>
+    <div class="page-head">
+      <h1>The 24 receipts</h1>
+      <p class="lede">These are the raw files the agent sees. Four layouts, a euro receipt, a duplicate, and a meal exactly at the limit.</p>
+    </div>
+    <div class="receipt-grid" id="receipt-grid"></div>
+  </section>
+</div>
+<script src="/app.js" defer></script>
+
+<dialog id="video-modal" aria-label="Explainer video">
+  <div class="modal-bar"><strong>Praxis in under 2 minutes</strong><button type="button" class="modal-x" id="video-close" aria-label="Close video">Close</button></div>
+  <video id="film" controls playsinline preload="none" poster="/poster.jpg" aria-label="Plain-English explainer of the Praxis project">
+    <source src="/praxis-explainer.mp4" type="video/mp4">
+    <source src="/praxis-explainer.webm" type="video/webm">
+    Your browser can't play this video. The same story is in the roadmap picture on the How it works tab.
+  </video>
+</dialog>
+</body>
+</html>
