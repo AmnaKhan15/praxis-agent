@@ -1,0 +1,4 @@
+Vendor: ScreenCast Plan
+Date: 2026-03-25
+Category: Software
+Amount: 19.00 USD

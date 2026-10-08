@@ -1,0 +1,4 @@
+Vendor: Daily Bean
+Date: 2026-03-14
+Category: Meals
+Amount: 6.75 USD

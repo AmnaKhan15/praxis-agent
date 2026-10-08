@@ -1,0 +1,4 @@
+Vendor: Berlin Hotel Am Park
+Date: 2026-03-15
+Category: Travel
+Amount: 120.00 EUR

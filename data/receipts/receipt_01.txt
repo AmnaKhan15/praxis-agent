@@ -1,0 +1,4 @@
+Vendor: Blue Door Cafe
+Date: 2026-03-02
+Category: Meals
+Amount: 18.40 USD

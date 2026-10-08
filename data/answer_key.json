@@ -1,0 +1,27 @@
+{
+  "receipt_count": 24,
+  "eur_rate": 1.1,
+  "totals": {
+    "Meals": 390.85,
+    "Travel": 542.3,
+    "Software": 276.99,
+    "Office": 360.65,
+    "Other": 31.5
+  },
+  "over_policy_files": [
+    "receipt_02.txt",
+    "receipt_04.txt"
+  ],
+  "meal_files": [
+    "receipt_01.txt",
+    "receipt_02.txt",
+    "receipt_03.csv",
+    "receipt_04.txt",
+    "receipt_05.txt",
+    "receipt_06.txt",
+    "receipt_07.csv",
+    "receipt_08.txt"
+  ],
+  "duplicate_original": "receipt_18.txt",
+  "duplicate_copy": "receipt_21.txt"
+}
