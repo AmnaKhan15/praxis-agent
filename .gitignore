@@ -1,0 +1,20 @@
+# secrets: never commit these
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# runtime files (example runs are kept, everything else is local)
+logs/*
+!logs/example_*
+!logs/.gitkeep
+data/usage.json
+results/*
+!results/example_*
+!results/.gitkeep
