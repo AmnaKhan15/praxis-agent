@@ -1,0 +1,573 @@
+{
+  "goal": "Prepare the March expense report.",
+  "steps": [
+    {
+      "n": 1,
+      "type": "assistant",
+      "text": "I will start by looking at what is in the receipts folder."
+    },
+    {
+      "n": 2,
+      "type": "plan",
+      "items": [
+        {
+          "text": "Look at the receipts folder",
+          "status": "doing"
+        },
+        {
+          "text": "Read every receipt",
+          "status": "todo"
+        },
+        {
+          "text": "Total each category (convert currencies)",
+          "status": "todo"
+        },
+        {
+          "text": "Build the Summary sheet",
+          "status": "todo"
+        },
+        {
+          "text": "Flag anything that needs attention",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "type": "tool",
+      "name": "list_files",
+      "args": {
+        "path": "receipts"
+      },
+      "observation": "receipts/receipt_01.txt  (74 bytes)\nreceipts/receipt_02.txt  (87 bytes)\nreceipts/receipt_03.csv  (75 bytes)\nreceipts/receipt_04.txt  (72 bytes)\nreceipts/receipt_05.txt  (69 bytes)\nreceipts/receipt_06.txt  (85 bytes)\nreceipts/receipt_07.csv  (76 bytes)\nreceipts/receipt_08.txt  (66 bytes)\nreceipts/receipt_09.txt  (76 bytes)\nreceipts/receipt_10.txt  (92 bytes)\nreceipts/receipt_11.txt  (82 bytes)\nreceipts/receipt_12.txt  (61 bytes)\nreceipts/receipt_13.txt  (72 bytes)\nreceipts/receipt_14.txt  (92 bytes)\nreceipts/receipt_15.csv  (85 bytes)\nreceipts/receipt_16.txt  (76 bytes)\nreceipts/receipt_17.txt  (78 bytes)\nreceipts/receipt_18.txt  (95 bytes)\nreceipts/receipt_19.csv  (85 bytes)\nreceipts/receipt_20.txt  (61 bytes)\nreceipts/receipt_21.txt  (80 bytes)\nreceipts/receipt_22.txt  (87 bytes)\nreceipts/receipt_23.csv  (80 bytes)\nreceipts/receipt_24.txt  (69 bytes)",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 4,
+      "type": "assistant",
+      "text": "Reading receipts (8 of 24)."
+    },
+    {
+      "n": 5,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_01.txt"
+      },
+      "observation": "Vendor: Blue Door Cafe\nDate: 2026-03-02\nCategory: Meals\nAmount: 18.40 USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 6,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_02.txt"
+      },
+      "observation": "*** RECEIPT ***\nHarbor Grill\nDate: 03/05/2026\nCategory: Meals\nTotal: $82.50\nThank you!\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 7,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_03.csv"
+      },
+      "observation": "vendor,date,category,amount,currency\nNoodle Bar,2026-03-09,Meals,24.10,USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 8,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_04.txt"
+      },
+      "observation": "Paid $140.00 to Cedar & Co Catering on March 12, 2026. Category: Meals.\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 9,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_05.txt"
+      },
+      "observation": "Vendor: Daily Bean\nDate: 2026-03-14\nCategory: Meals\nAmount: 6.75 USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 10,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_06.txt"
+      },
+      "observation": "*** RECEIPT ***\nPita Place\nDate: 03/19/2026\nCategory: Meals\nTotal: $31.20\nThank you!\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 11,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_07.csv"
+      },
+      "observation": "vendor,date,category,amount,currency\nBistro Nord,2026-03-23,Meals,75.00,USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 12,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_08.txt"
+      },
+      "observation": "Paid $12.90 to Sunrise Bakery on March 27, 2026. Category: Meals.\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 13,
+      "type": "assistant",
+      "text": "Reading receipts (16 of 24)."
+    },
+    {
+      "n": 14,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_09.txt"
+      },
+      "observation": "Vendor: Metro Rail Pass\nDate: 2026-03-03\nCategory: Travel\nAmount: 54.00 USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 15,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_10.txt"
+      },
+      "observation": "*** RECEIPT ***\nSkyJet Airlines\nDate: 03/10/2026\nCategory: Travel\nTotal: $312.80\nThank you!\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 16,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_11.txt"
+      },
+      "observation": "Vendor: Berlin Hotel Am Park\nDate: 2026-03-15\nCategory: Travel\nAmount: 120.00 EUR\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 17,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_12.txt"
+      },
+      "observation": "Paid $28.50 to City Cab on March 16, 2026. Category: Travel.\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 18,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_13.txt"
+      },
+      "observation": "Vendor: Park & Ride\nDate: 2026-03-21\nCategory: Travel\nAmount: 15.00 USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 19,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_14.txt"
+      },
+      "observation": "*** RECEIPT ***\nCloudNotes Pro\nDate: 03/01/2026\nCategory: Software\nTotal: $49.00\nThank you!\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 20,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_15.csv"
+      },
+      "observation": "vendor,date,category,amount,currency\nDevTools License,2026-03-06,Software,129.00,USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 21,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_16.txt"
+      },
+      "observation": "Paid $79.99 to DataSync Subscription on March 18, 2026. Category: Software.\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 22,
+      "type": "assistant",
+      "text": "Reading receipts (24 of 24)."
+    },
+    {
+      "n": 23,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_17.txt"
+      },
+      "observation": "Vendor: ScreenCast Plan\nDate: 2026-03-25\nCategory: Software\nAmount: 19.00 USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 24,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_18.txt"
+      },
+      "observation": "*** RECEIPT ***\nPaperWorks Supplies\nDate: 03/04/2026\nCategory: Office\nTotal: $63.25\nThank you!\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 25,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_19.csv"
+      },
+      "observation": "vendor,date,category,amount,currency\nDesk & Chair Depot,2026-03-11,Office,214.90,USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 26,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_20.txt"
+      },
+      "observation": "Paid $38.40 to PrintHub on March 13, 2026. Category: Office.\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 27,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_21.txt"
+      },
+      "observation": "Vendor: PaperWorks Supplies\nDate: 2026-03-04\nCategory: Office\nAmount: 63.25 USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 28,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_22.txt"
+      },
+      "observation": "*** RECEIPT ***\nInk Station\nDate: 03/24/2026\nCategory: Office\nTotal: $44.10\nThank you!\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 29,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_23.csv"
+      },
+      "observation": "vendor,date,category,amount,currency\nCourier Express,2026-03-08,Other,22.00,USD\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 30,
+      "type": "tool",
+      "name": "read_file",
+      "args": {
+        "path": "receipts/receipt_24.txt"
+      },
+      "observation": "Paid $9.50 to Conference Parking on March 20, 2026. Category: Other.\n",
+      "ok": true,
+      "ms": 0
+    },
+    {
+      "n": 31,
+      "type": "assistant",
+      "text": "I have read everything. Writing the Summary sheet now."
+    },
+    {
+      "n": 32,
+      "type": "plan",
+      "items": [
+        {
+          "text": "Look at the receipts folder",
+          "status": "done"
+        },
+        {
+          "text": "Read every receipt",
+          "status": "done"
+        },
+        {
+          "text": "Total each category (convert currencies)",
+          "status": "done"
+        },
+        {
+          "text": "Build the Summary sheet",
+          "status": "doing"
+        },
+        {
+          "text": "Flag anything that needs attention",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "n": 33,
+      "type": "tool",
+      "name": "write_rows",
+      "args": {
+        "sheet": "Summary",
+        "start_row": 1,
+        "rows": [
+          [
+            "Category",
+            "Total (USD)"
+          ],
+          [
+            "Meals",
+            390.85
+          ],
+          [
+            "Office",
+            423.9
+          ],
+          [
+            "Other",
+            31.5
+          ],
+          [
+            "Software",
+            276.99
+          ],
+          [
+            "Travel",
+            542.3
+          ]
+        ]
+      },
+      "observation": "Wrote 6 row(s) to Summary starting at row 1",
+      "ok": true,
+      "ms": 4
+    },
+    {
+      "n": 34,
+      "type": "tool",
+      "name": "add_sheet",
+      "args": {
+        "name": "Flags"
+      },
+      "observation": "Added sheet 'Flags'. Sheets now: Summary, Flags.",
+      "ok": true,
+      "ms": 8
+    },
+    {
+      "n": 35,
+      "type": "assistant",
+      "text": "Now listing the receipts that need attention."
+    },
+    {
+      "n": 36,
+      "type": "plan",
+      "items": [
+        {
+          "text": "Look at the receipts folder",
+          "status": "done"
+        },
+        {
+          "text": "Read every receipt",
+          "status": "done"
+        },
+        {
+          "text": "Total each category (convert currencies)",
+          "status": "done"
+        },
+        {
+          "text": "Build the Summary sheet",
+          "status": "done"
+        },
+        {
+          "text": "Flag anything that needs attention",
+          "status": "doing"
+        }
+      ]
+    },
+    {
+      "n": 37,
+      "type": "tool",
+      "name": "write_rows",
+      "args": {
+        "sheet": "Flags",
+        "start_row": 1,
+        "rows": [
+          [
+            "File",
+            "Reason"
+          ],
+          [
+            "receipt_02.txt",
+            "Meal over 75 USD, needs manager approval"
+          ],
+          [
+            "receipt_04.txt",
+            "Meal over 75 USD, needs manager approval"
+          ]
+        ]
+      },
+      "observation": "Wrote 3 row(s) to Flags starting at row 1",
+      "ok": true,
+      "ms": 9
+    },
+    {
+      "n": 38,
+      "type": "assistant",
+      "text": "Everything I can do is done."
+    },
+    {
+      "n": 39,
+      "type": "plan",
+      "items": [
+        {
+          "text": "Look at the receipts folder",
+          "status": "done"
+        },
+        {
+          "text": "Read every receipt",
+          "status": "done"
+        },
+        {
+          "text": "Total each category (convert currencies)",
+          "status": "done"
+        },
+        {
+          "text": "Build the Summary sheet",
+          "status": "done"
+        },
+        {
+          "text": "Flag anything that needs attention",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "n": 40,
+      "type": "finish",
+      "summary": "The expense report is ready."
+    }
+  ],
+  "finished": true,
+  "summary": "The expense report is ready.",
+  "stop_reason": "finished",
+  "error": null,
+  "tokens_in": 0,
+  "tokens_out": 0,
+  "seconds": 0.03,
+  "run_id": "example_demo_workspace",
+  "created": "2026-10-07T23:34:04+00:00",
+  "provider": "demo",
+  "model": "scripted-demo",
+  "demo": true,
+  "setup": {
+    "label": "+ context + tool",
+    "context": true,
+    "workspace": true,
+    "instructions": false
+  },
+  "check": {
+    "score": 5,
+    "total": 7,
+    "checks": [
+      {
+        "id": "report",
+        "title": "Report opens and has a Summary sheet",
+        "passed": true,
+        "detail": "OK"
+      },
+      {
+        "id": "plain",
+        "title": "Meals, Software and Other totals are correct",
+        "passed": true,
+        "detail": "OK"
+      },
+      {
+        "id": "euro",
+        "title": "Euro receipt converted to USD (Travel total)",
+        "passed": true,
+        "detail": "Travel total is 542.3, expected 542.3"
+      },
+      {
+        "id": "dup_total",
+        "title": "Duplicate receipt counted once (Office total)",
+        "passed": false,
+        "detail": "Office total is 423.9, expected 360.65"
+      },
+      {
+        "id": "policy",
+        "title": "Meals over the policy limit are on the Flags sheet",
+        "passed": true,
+        "detail": "OK"
+      },
+      {
+        "id": "dup_flag",
+        "title": "Duplicate receipt is listed on the Flags sheet",
+        "passed": false,
+        "detail": "Neither duplicate receipt appears on the Flags sheet."
+      },
+      {
+        "id": "untouched",
+        "title": "Original receipts were not changed",
+        "passed": true,
+        "detail": "OK"
+      }
+    ]
+  },
+  "hints": [
+    {
+      "lever": "instructions",
+      "title": "The duplicate receipt was not handled",
+      "evidence": "Nothing told the agent how to treat duplicates. Say so in the instructions."
+    }
+  ],
+  "report_file": "example_demo_workspace_expense_report.xlsx"
+}

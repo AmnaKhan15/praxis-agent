@@ -1,0 +1,57 @@
+{
+  "provider": "demo",
+  "model": "scripted-demo",
+  "demo": true,
+  "runs_per_setup": 1,
+  "created": "2026-10-07T23:34:04+00:00",
+  "rows": [
+    {
+      "setup": "baseline",
+      "label": "Goal only",
+      "scores": [
+        3
+      ],
+      "avg_score": 3.0,
+      "total": 7,
+      "avg_tool_calls": 26.0,
+      "avg_tokens": 0,
+      "errored_runs": 0
+    },
+    {
+      "setup": "context",
+      "label": "+ context",
+      "scores": [
+        4
+      ],
+      "avg_score": 4.0,
+      "total": 7,
+      "avg_tool_calls": 27.0,
+      "avg_tokens": 0,
+      "errored_runs": 0
+    },
+    {
+      "setup": "workspace",
+      "label": "+ context + tool",
+      "scores": [
+        5
+      ],
+      "avg_score": 5.0,
+      "total": 7,
+      "avg_tool_calls": 28.0,
+      "avg_tokens": 0,
+      "errored_runs": 0
+    },
+    {
+      "setup": "instructions",
+      "label": "+ context + tool + instructions",
+      "scores": [
+        7
+      ],
+      "avg_score": 7.0,
+      "total": 7,
+      "avg_tool_calls": 28.0,
+      "avg_tokens": 0,
+      "errored_runs": 0
+    }
+  ]
+}
