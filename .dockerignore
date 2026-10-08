@@ -1,0 +1,29 @@
+# Keep keys and clutter out of the image.
+.env
+.env.*
+!.env.example
+.git
+.github
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+
+# Not needed to run the app
+tests
+docs
+*.md
+!README.md
+Dockerfile
+.dockerignore
+docker-compose.yml
+.vercelignore
+vercel.json
+
+# Local run files (saved example runs are kept)
+logs/*
+!logs/example_*
+results/*
+!results/example_*
+data/usage.json

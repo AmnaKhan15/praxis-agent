@@ -1,0 +1,11 @@
+# One command to start Praxis:   docker compose up --build
+# Then open http://localhost:8000
+# Put your key in a file named .env first (copy .env.example). The key is read at run time, not baked in.
+services:
+  praxis:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    restart: unless-stopped
